@@ -1,0 +1,1 @@
+Route::apiResource('libros', App\Http\Controllers\API\LibroController::class);
