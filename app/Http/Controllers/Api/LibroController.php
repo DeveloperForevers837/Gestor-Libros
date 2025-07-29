@@ -50,6 +50,18 @@ class LibroController extends Controller
         return response()->json(['error' => 'Error interno'], 500);
     }
 }
+public function destroy($id)
+{
+    $libro = Libro::findOrFail($id);
+
+    // Eliminar relaciones con autores
+    $libro->autores()->detach();
+
+    // Ahora puedes eliminar el libro
+    $libro->delete();
+
+    return response()->json(['message' => 'Libro eliminado correctamente']);
+}
 
 public function update(Request $request, $id)
 {
