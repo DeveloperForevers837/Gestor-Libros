@@ -32,7 +32,7 @@ return response()->json($autores);
         'pais' => $request->pais,
     ]);
 // Al crear o actualizar un libro
-
+/* $libro->autores()->sync($request->autor_ids); */
     return response()->json($autor, 201);
 }
 
