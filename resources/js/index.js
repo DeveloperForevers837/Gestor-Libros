@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../pages/Home.vue'
-import LibroForm from '../pages/LibroForm.vue'
+import Libros from '../js/components/Books.vue' 
 
 const routes = [
   { path: '/', name: 'home', component: Home },
+  { path: '/libros', name: 'libros', component: Libros },  
   { path: '/libros/create', name: 'create', component: LibroForm },
 ]
 

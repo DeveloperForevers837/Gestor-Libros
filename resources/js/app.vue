@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Gestor de Libros</h1>
-  </div>
+  <router-view />
 </template>
 
 <script>
