@@ -1,61 +1,51 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestor de Libros 📚
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web para gestionar libros y autores con relación muchos a muchos.  
+Permite agregar, editar, eliminar y listar libros y autores, vinculando varios autores a un libro y viceversa.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías usadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Frontend:** Vue.js 3, Bootstrap 5, Axios, Vite  
+- **Backend:** Laravel 10 (PHP)  
+- **Base de datos:** MySQL  
+- **Control de versiones:** Git
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Uso básico
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Acceder al frontend en el navegador (`http://localhost:8080` o la URL que use tu servidor Vue).  
+- Crear autores con nombre, apellido y país.  
+- Crear libros y seleccionar uno o más autores desde un selector múltiple.  
+- Ver detalles de libros y sus autores vinculados.  
+- Editar y eliminar libros o autores según sea necesario.
+- Rutas: Gestor de Libros (`http://localhost:8080` + '/Gestor-Libros'), Gestor de Autores (`http://localhost:8080` + '/Autores')
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Errores comunes y soluciones aplicadas
 
-## Laravel Sponsors
+### 1. Error 500 al eliminar un libro
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Problema:** El backend lanzaba un error 500 por restricciones en la base de datos al borrar libros con autores relacionados.  
+- **Solución:** Modifiqué el controlador para que primero desvincule los autores (elimine relaciones en la tabla pivot) antes de eliminar el libro, evitando errores de llave foránea.
 
-### Premium Partners
+### 2. Error 422 al crear un autor
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Problema:** Fallaba la validación por campos mal tipados (por ejemplo, apellido como entero).  
+- **Solución:** Corregí las reglas de validación en el controlador para que `apellido` sea un string y ajusté el frontend para enviar datos compatibles.
 
-## Contributing
+### 3. No se mostraban múltiples autores en detalles del libro
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Problema:** El modal sólo mostraba un autor aunque el libro tuviera varios.  
+- **Solución:** Usé eager loading con `with('autores')` en el backend para cargar la relación muchos a muchos y luego en el frontend usé `v-for` para mostrar todos los autores.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Versionamiento y subida a GitHub
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Verificar estado de archivos:  
+```bash
+git status
