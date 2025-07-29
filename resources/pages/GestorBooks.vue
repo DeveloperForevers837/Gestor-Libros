@@ -57,20 +57,22 @@
           </div>
 
           <!-- Autor -->
-          <div class="col-md-6">
-            <label for="autor" class="form-label">Autor</label>
-            <select
-              id="autor"
-              v-model="nuevoLibro.autor_id"
-              class="form-select"
-              required
-            >
-              <option disabled value="">Seleccione un autor</option>
-              <option v-for="autor in autores" :key="autor.id" :value="autor.id">
-                {{ autor.nombre }} {{ autor.apellido }}
-              </option>
-            </select>
-          </div>
+            <div class="col-md-6">
+  <label for="autor" class="form-label">Autores</label>
+  <select
+    id="autor"
+    v-model="nuevoLibro.autor_ids"
+    class="form-select"
+    multiple
+    required>
+    <option
+      v-for="autor in autores"
+      :key="autor.id"
+      :value="autor.id">
+      {{ autor.nombre }} {{ autor.apellido }}
+    </option>
+  </select>
+</div>
 
           <!-- Descripción -->
           <div class="col-12">
@@ -139,8 +141,13 @@
           <div class="modal-body">
             <p><strong>Título:</strong> {{ libroSeleccionado.titulo }}</p>
             <p>
-              <strong>Autor:</strong>
-              {{ libroSeleccionado.autor?.nombre }} {{ libroSeleccionado.autor?.apellido }}
+              <strong>Autor/es: </strong>
+                  <ul>
+    <li v-for="autor in libroSeleccionado.autores" :key="autor.id">
+      {{ autor.nombre }} {{ autor.apellido }} ({{ autor.pais }})
+    </li>
+    <li v-if="!libroSeleccionado.autores || libroSeleccionado.autores.length === 0">Sin autores</li>
+  </ul>
             </p>
             <p><strong>Año de Publicación:</strong> {{ libroSeleccionado.anio_publicacion }}</p>
             <p><strong>Editorial:</strong> {{ libroSeleccionado.editorial || 'No especificada' }}</p>
@@ -176,7 +183,7 @@ export default {
         anio_publicacion: null,
         editorial: "",
         descripcion: "",
-        autor_id: "",
+        autor_ids: [],
       },
 
       // Mensajes UI
@@ -245,7 +252,10 @@ export default {
     editarLibro(libro) {
       this.editando = true;
       // Copiamos el libro para edición
-      this.nuevoLibro = { ...libro, autor_id: libro.autor?.id || "" };
+     this.nuevoLibro = {
+  ...libro,
+  autor_ids: libro.autores?.map(a => a.id) || []
+};
       this.mostrarFormulario = true;
     },
 
@@ -285,7 +295,7 @@ export default {
         anio_publicacion: null,
         editorial: "",
         descripcion: "",
-        autor_id: "",
+        autor_ids: [],
       };
       this.mensajeError = "";
       this.mensajeSuccess = "";
