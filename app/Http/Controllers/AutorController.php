@@ -22,7 +22,7 @@ return response()->json($autores);
         'nombre' => 'required|string|max:255',
         'apellido' => 'required|string|max:255',
         'pais' => 'nullable|string|max:255',
-        'autor_ids' => 'required|array',
+        'autor_ids' => 'array',
     'autor_ids.*' => 'exists:autores,id',
     ]);
 
@@ -32,7 +32,7 @@ return response()->json($autores);
         'pais' => $request->pais,
     ]);
 // Al crear o actualizar un libro
-$libro->autores()->sync($request->autor_ids);
+
     return response()->json($autor, 201);
 }
 
