@@ -75,10 +75,9 @@ public function update(Request $request, $id)
         'editorial' => 'nullable|string',
         'descripcion' => 'nullable|string',
     ]);
-
+ return response()->json(['message' => 'Libro actualizado correctamente']);
     $libro->update($validated);
     $libro->autores()->sync($validated['autor_ids']);
-
     return response()->json($libro->load('autores'));
 }
 }

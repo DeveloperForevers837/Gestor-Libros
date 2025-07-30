@@ -175,6 +175,10 @@ export default {
         this.limpiarFormulario();
         this.obtenerAutores();
         this.mostrarFormulario = false;
+        // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+      this.mensajeSuccess = '';
+    }, 3000);
       } catch (error) {
         this.mensajeError = 'Error al agregar autor. Verifica los datos.';
         console.error(error);
@@ -206,6 +210,10 @@ export default {
         this.obtenerAutores();
         this.cancelarEdicion();
         this.mostrarFormulario = false;
+        // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+      this.mensajeSuccess = '';
+    }, 3000);
       } catch (error) {
         this.mensajeError = 'Error al actualizar autor. Verifica los datos.';
         console.error(error);
@@ -219,6 +227,10 @@ export default {
         await axios.delete(`/api/autores/${id}`); // Suponiendo soft delete en backend
         this.mensajeSuccess = 'Autor eliminado correctamente.';
         this.obtenerAutores();
+        // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+      this.mensajeSuccess = '';
+    }, 3000);
       } catch (error) {
         this.mensajeError = 'Error al eliminar autor.';
         console.error(error);

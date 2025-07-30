@@ -265,11 +265,17 @@ export default {
         axios
           .delete(`/api/libros/${id}`)
           .then(() => {
-            this.mensajeSuccess = "Libro eliminado correctamente.";
+           setTimeout(() => {
+   this.mensajeSuccess = "Libro eliminado correctamente.";
+}, 3000); // 3 segundos
             this.obtenerLibros();
+          
           })
+          
           .catch((err) => {
-            this.mensajeError = "Error al eliminar libro.";
+            setTimeout(() => {
+  this.mensajeError = "Error al eliminar libro.";
+}, 3000); // 3 segundos
             console.error(err);
           });
       }
@@ -298,7 +304,9 @@ export default {
         autor_ids: [],
       };
       this.mensajeError = "";
-      this.mensajeSuccess = "";
+      setTimeout(() => {
+  this.mensajeSuccess = "";
+}, 3000); // 3 segundos
     },
   },
 
